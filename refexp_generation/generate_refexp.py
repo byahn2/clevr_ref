@@ -324,7 +324,7 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
 
     # Check to make sure the current state is valid
     q = {'nodes': state['nodes']}
-    outputs = qeng.answer_refexp(q, metadata, scene_struct, all_outputs=True)
+    outputs = qeng.answer_refexp(q, metadata, scene_struct, all_outputs=True) # error 1
     answer = outputs[-1]
     if answer == '__INVALID__': 
       failed_time += 1
@@ -469,7 +469,7 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
             num_to_option[cnt].append(it_k)
 
         # choose one num randomly
-        rd_num = random.choice(num_to_option.keys())
+        rd_num = random.choice(list(num_to_option.keys()))
         # return one option_key
         choice = random.choice(num_to_option[rd_num])
         return choice
@@ -497,7 +497,7 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
           cur_next_vals[param_name] = param_val
           next_input = len(state['nodes']) + len(new_nodes) - 1
 
-        param_name_val_pair = zip(filter_side_inputs, k)
+        param_name_val_pair = list(zip(filter_side_inputs, k))
 
         param_name_val_pair = param_name_val_pair[:4] + \
                               [[[param_name_val_pair[4][0],param_name_val_pair[5][0]],
@@ -777,7 +777,7 @@ def main(args):
                       synonyms,
                       max_instances=args.instances_per_template,
                       verbose=False,
-                      trivial_frac=args.trivial_frac)
+                      trivial_frac=args.trivial_frac) # error 1
 
       toc = time.time()
 

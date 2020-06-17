@@ -78,6 +78,7 @@ def intersect_handler(scene_struct, inputs, side_inputs):
   return sorted(list(set(inputs[0]) & set(inputs[1])))
 
 # BRYCE CODE
+# not_handler takes two sets, the second being a subset of the first and returns the first set without the second
 def not_handler(scene_struct, inputs, side_inputs):
   assert len(inputs) == 2
   assert len(side_inputs) == 0
@@ -85,7 +86,29 @@ def not_handler(scene_struct, inputs, side_inputs):
   unwanted_obj = set(inputs[1])
   out_set = [obj for obj in out_set if obj not in unwanted_obj]
   return sorted(list(out_set))
-# BRYCE CODE
+
+# num_handler takes a set and an integer as input and outputs a set of the size of that integer
+
+# def num_handler(scene_struct, inputs, side_inputs):
+#   assert len(inputs) == 2
+#   assert len(side_inputs) == 0
+#   final_count = inputs[1]
+#   if len(inputs[0]) < final_count:
+#     return '__INVALID__'
+#   output = []
+#   for i in range(final_count):
+#     output.append(inputs[1][i])
+#   return output
+
+def make_num_unique_handler(integer_value):
+  def num_unique_handler(scene_struct, inputs, side_inputs):
+    assert len(inputs) == 1
+    assert len(side_inputs) == 0
+    if len(inputs[0]) != integer_value:
+      return '__INVALID__'
+    return inputs[0]
+  return num_unique_handler
+#BRYCE CODE
 
 def count_handler(scene_struct, inputs, side_inputs):
   assert len(inputs) == 1
@@ -329,7 +352,10 @@ execute_handlers = {
   'relate': relate_handler,
   'union': union_handler,
   'intersect': intersect_handler,
+  # BRYCE CODE
   'not': not_handler,
+  'two_unique': make_num_unique_handler(2),
+  # BRYCE CODE
   'count': count_handler,
   'query_color': make_query_handler('color'),
   'query_shape': make_query_handler('shape'),

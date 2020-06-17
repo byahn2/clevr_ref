@@ -116,6 +116,24 @@
       "terminal": false
     },
     {
+      "name": "three_unique",
+      "inputs": ["ObjectSet"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
+      "name": "four_unique",
+      "inputs": ["ObjectSet"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
+      "name": "five_unique",
+      "inputs": ["ObjectSet"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
       "name": "count",
       "inputs": ["ObjectSet"],
       "output": "Integer",

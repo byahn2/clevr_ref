@@ -110,6 +110,12 @@
       "terminal": false
     },
     {
+      "name": "two_unique",
+      "inputs": ["ObjectSet"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
       "name": "count",
       "inputs": ["ObjectSet"],
       "output": "Integer",

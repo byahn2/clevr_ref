@@ -77,6 +77,15 @@ def intersect_handler(scene_struct, inputs, side_inputs):
   assert len(side_inputs) == 0
   return sorted(list(set(inputs[0]) & set(inputs[1])))
 
+# BRYCE CODE
+def not_handler(scene_struct, inputs, side_inputs):
+  assert len(inputs) == 2
+  assert len(side_inputs) == 0
+  out_set = list(inputs[0])
+  unwanted_obj = set(inputs[1])
+  out_set = [obj for obj in out_set if obj not in unwanted_obj]
+  return sorted(list(out_set))
+# BRYCE CODE
 
 def count_handler(scene_struct, inputs, side_inputs):
   assert len(inputs) == 1
@@ -320,6 +329,7 @@ execute_handlers = {
   'relate': relate_handler,
   'union': union_handler,
   'intersect': intersect_handler,
+  'not': not_handler,
   'count': count_handler,
   'query_color': make_query_handler('color'),
   'query_shape': make_query_handler('shape'),

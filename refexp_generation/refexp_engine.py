@@ -355,6 +355,9 @@ execute_handlers = {
   # BRYCE CODE
   'not': not_handler,
   'two_unique': make_num_unique_handler(2),
+  'three_unique': make_num_unique_handler(3),
+  'four_unique': make_num_unique_handler(4),
+  'five_unique': make_num_unique_handler(5),
   # BRYCE CODE
   'count': count_handler,
   'query_color': make_query_handler('color'),

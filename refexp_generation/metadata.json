@@ -134,6 +134,20 @@
       "terminal": false
     },
     {
+      "name": "farthest",
+      "inputs": ["ObjectSet"],
+      "side_inputs": ["Relation"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
+      "name": "two_farthest",
+      "inputs": ["ObjectSet"],
+      "side_inputs": ["Relation"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
       "name": "count",
       "inputs": ["ObjectSet"],
       "output": "Integer",

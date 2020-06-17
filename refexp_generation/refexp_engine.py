@@ -4,6 +4,7 @@
 # This source code is licensed under the BSD-style license found in the
 # LICENSE file in the root directory of this source tree. An additional grant
 # of patent rights can be found in the PATENTS file in the same directory.
+from typing import List, Any, Union
 
 import numpy as np
 import json, os, math
@@ -87,19 +88,6 @@ def not_handler(scene_struct, inputs, side_inputs):
   out_set = [obj for obj in out_set if obj not in unwanted_obj]
   return sorted(list(out_set))
 
-# num_handler takes a set and an integer as input and outputs a set of the size of that integer
-
-# def num_handler(scene_struct, inputs, side_inputs):
-#   assert len(inputs) == 2
-#   assert len(side_inputs) == 0
-#   final_count = inputs[1]
-#   if len(inputs[0]) < final_count:
-#     return '__INVALID__'
-#   output = []
-#   for i in range(final_count):
-#     output.append(inputs[1][i])
-#   return output
-
 def make_num_unique_handler(integer_value):
   def num_unique_handler(scene_struct, inputs, side_inputs):
     assert len(inputs) == 1
@@ -108,10 +96,36 @@ def make_num_unique_handler(integer_value):
       return '__INVALID__'
     return inputs[0]
   return num_unique_handler
+
+# takes a set and a relational attribute and returns the object in the set that is most (that attribute)
+def make_n_farthest_handler(integer_value):
+  def n_farthest_handler(scene_struct, inputs, side_inputs):
+    assert len(inputs) == 1
+    assert len(side_inputs) == 1
+    #  if there is not more that the requested number of objects in the set, the request is trivial
+    if len(inputs[0]) <= integer_value:
+      return '__INVALID__'
+    relation = side_inputs[0]
+    output = []
+    current_set = inputs[0]
+    for idx in range(integer_value):
+      num_in_set = len(current_set)
+      print(num_in_set)
+      for obj in range(num_in_set):
+        set_farther = scene_struct['relationships'][relation][current_set[obj]]
+        set_farther = sorted(list(set(current_set) & set(set_farther)))
+        if len(set_farther) == 0:
+          output.append(current_set[obj])
+          current_set.remove(current_set[obj])
+          break
+    return output
+  return n_farthest_handler
+
 #BRYCE CODE
 
 def count_handler(scene_struct, inputs, side_inputs):
   assert len(inputs) == 1
+  print(inputs[0])
   return len(inputs[0])
 
 
@@ -358,6 +372,8 @@ execute_handlers = {
   'three_unique': make_num_unique_handler(3),
   'four_unique': make_num_unique_handler(4),
   'five_unique': make_num_unique_handler(5),
+  'farthest': make_n_farthest_handler(1),
+  'two_farthest': make_n_farthest_handler(2),
   # BRYCE CODE
   'count': count_handler,
   'query_color': make_query_handler('color'),

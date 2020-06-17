@@ -104,6 +104,12 @@
       "terminal": false
     },
     {
+      "name": "not",
+      "inputs": ["ObjectSet", "ObjectSet"],
+      "output": "ObjectSet",
+      "terminal": false
+    },
+    {
       "name": "count",
       "inputs": ["ObjectSet"],
       "output": "Integer",

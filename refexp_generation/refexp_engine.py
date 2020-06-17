@@ -110,7 +110,6 @@ def make_n_farthest_handler(integer_value):
     current_set = inputs[0]
     for idx in range(integer_value):
       num_in_set = len(current_set)
-      print(num_in_set)
       for obj in range(num_in_set):
         set_farther = scene_struct['relationships'][relation][current_set[obj]]
         set_farther = sorted(list(set(current_set) & set(set_farther)))
@@ -125,7 +124,6 @@ def make_n_farthest_handler(integer_value):
 
 def count_handler(scene_struct, inputs, side_inputs):
   assert len(inputs) == 1
-  print(inputs[0])
   return len(inputs[0])
 
 
@@ -374,6 +372,8 @@ execute_handlers = {
   'five_unique': make_num_unique_handler(5),
   'farthest': make_n_farthest_handler(1),
   'two_farthest': make_n_farthest_handler(2),
+  'three_farthest': make_n_farthest_handler(3),
+  'four_farthest': make_n_farthest_handler(4),
   # BRYCE CODE
   'count': count_handler,
   'query_color': make_query_handler('color'),
